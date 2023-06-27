@@ -80,18 +80,10 @@ const postComment = async (post, commentBody) => {
     });
 
     let updatedPost = await post.save();
-    //updatedPost = await updatedPost
-    // .find()
-    // .populate({ path: 'people', select: 'firstname' })
-    // .populate({ path: 'people', select: 'lastname' });
     updatedPost = (await updatedPost).populate(
       'comments.people',
       'firstname lastname joined'
     );
-    //.populate('comments.people', 'laststname');
-    //updatedPost = (await updatedPost).populate('comments.people', 'lastname');
-    // updatedPost = (await updatedPost).populate('comments.people', 'lastname');
-    // updatedPost = (await updatedPost).populate('comments.people', 'img');
 
     return Promise.resolve(updatedPost);
   } catch (error) {
